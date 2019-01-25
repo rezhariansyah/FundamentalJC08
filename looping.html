@@ -1,0 +1,160 @@
+<script>
+//  prompt = daftar menu 
+//  1. Segitiga Siku siku 
+//  2. segitiga sama kaki
+//  3. Belanja
+//  4. exit
+//
+// 
+// segitiga sama kaki
+// prompt =  berapa baris? proteksi user bisa 1 -10
+// 
+//  segitiga siku siku
+//  prompt = siku atas atau siku bawah
+//  prompt = berapa baris?
+//  proteksi = 1-10
+// 
+//  belanja
+//  ayam = 10000
+//  sapi = 25000
+//  salmon = 30000
+
+// klik barang muncul prompt berapa buah?
+// total belanja = ....
+// confirm mau lagi? yes balik menu utama
+
+// fikri@dilizents.com
+// subject email = nama kalian
+// sebelum jam 6 sore
+var menulagi;
+do{
+    var proteksi1 = true
+    while(proteksi1){
+        menu = prompt('Pilih Menu \n 1. Segitiga Siku Siku \n 2. Segitiga Sama Kaki \n 3. Belanja \n 4. Exit')
+        if(menu > 0 && menu <4){
+            proteksi1 = false
+        }else{
+            alert('Anda Salah Input')
+        }
+    }
+    if(menu == 1){
+    var proteksi2 = true
+    while(proteksi2){
+        var siku = prompt('1. Siku atas \n 2. Siku Bawah')
+        if(siku == 1 || siku == 2){
+            proteksi2 = false
+        }else{
+            alert('Anda Salah input')
+        }
+    }
+    if(siku == 1){
+        var proteksi3 = true
+        while(proteksi3){
+            var baris = prompt('Mau Berapa Baris?')
+            if(baris > 0 && baris < 11){
+                proteksi3 = false
+            }else{
+                alert('Hanya Boleh input 1 - 10')
+            }
+        }
+        var bintang2 = ''
+        for(let i = 0 ; i < baris; i++){
+            for(let j = baris ; j > i; j--){
+                bintang2 += '*'
+            }
+            bintang2 += '\n'
+        }
+        alert(bintang2)
+        menulagi = confirm('Mau Lagi?')
+    }else if(siku == 2){
+        var proteksi4 = true
+        do{
+        var baris = prompt('Mau Berapa Baris?')
+        if(baris >=1 && baris <= 10){
+            proteksi4 = false
+        }else{
+            alert('Anda Salah input')
+        }
+        }while(proteksi4)
+        var bintang = ''
+        for(var i = 0 ; i < baris; i++){
+            for(var j = 0; j <= i; j ++){
+                bintang += '*'
+            }
+            bintang += '\n'
+        }
+        alert(bintang)
+        menulagi = confirm('Mau Lagi?')
+    }
+    }else if(menu == 2){
+        do{
+            var proteksi7 =true
+            var baris = parseInt(prompt('Mau Berapa Baris?'))
+            if(baris > 0 && baris <= 10){
+                proteksi7 = false
+            }else{
+                alert('Anda Salah Input')
+            }
+        }while(proteksi7)
+        var bintang3 = ''
+        for(let i = 0 ; i < baris; i++){
+            for(let j = i; j < baris ; j++){
+                bintang3 += ' '
+            }
+            for(let k = 0 ; k <=i ; k++){
+                bintang3 += '*'
+            }
+            for(let l = 0; l <= i-1; l++){
+                bintang3+= '*'
+            }
+            bintang3 += '\n'
+        }
+        alert(bintang3)
+        menulagi = confirm('Mau Lagi?')
+    }else if(menu == 3){
+        var ayam = 10000
+        var sapi = 25000
+        var salmon = 30000
+        var total = 0
+        do
+        {
+            var proteksi5 = true
+            var pilihan = parseInt(prompt('Mau Beli Apa \n 1. Ayam Rp. 10000 \n 2. Sapi Rp. 25000 \n 3. Salmon Rp. 30000'))
+            if(pilihan == 1){
+                total = ayam
+                proteksi5 = false
+            }else if(pilihan == 2){
+                total = sapi
+                proteksi5 =false
+            }else if(pilihan == 3){
+                total =salmon
+                proteksi5 = false
+            }
+            else{
+                alert('Anda Salah Input brooo')
+            }
+        }while(proteksi5)
+        do{
+            var proteksi6 = true
+            var qty = prompt('Mau Beli Berapa?')
+            if(qty > 0){
+                proteksi6 = false
+            }else{
+                alert('Anda Salah Input')
+            }
+        }while(proteksi6)
+        if(pilihan == 1){
+            total = ayam*qty
+        }else if(pilihan ==2){
+            total = sapi * qty
+        }else if(pilihan == 3){
+            total = salmon * qty
+        }
+        alert('Total Belanja Anda adalah = ' + total)
+        menulagi = confirm('Mau Lagi?')
+    }
+}while(menulagi)
+
+
+</script>
+
