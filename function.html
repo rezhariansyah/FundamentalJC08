@@ -1,0 +1,128 @@
+<script>
+    // Declare All Function Here
+  function convertHari(input){ // 390
+    var tahun = parseInt(input/360) // 1
+    var sisatahun = input%360 // 30
+    var bulan = parseInt(sisatahun/30) //1
+    var sisabulan = sisatahun%30 //0
+    var hari = sisabulan
+    return `${input} = 
+            ${tahun} tahun , 
+            ${bulan} bulan , 
+            ${hari} hari`
+  }
+
+  function convertDetik(input){
+      var jam = parseInt(input/3600)
+      var sisajam = input%3600
+      var menit = parseInt(sisajam/60)
+      var detik = sisajam%60
+    return input + ' = ' + jam + ' jam, ' + menit +' menit, ' + detik + ' detik'
+  }
+
+  function segitiga(alas,tinggi){
+    return 'Segitiga dengan alas = ' + alas + ' dan tinggi = ' + tinggi + ' memiliki luas ' + (0.5*alas*tinggi) + ' m2'
+  }
+
+//   segitiga(165,320)
+
+
+  function trapesium(sisi1,sisi2,tinggi){
+      return 'Trapesium memiliki luas ' + (sisi1+sisi2) * 0.5 * tinggi
+  }
+
+  var lagi = true
+  while(lagi)
+  {
+    // ======================= PROTEKSI MAIN MENU =======================================
+    do
+    {
+        var proteksi = 1
+        var menu = prompt('Pilih Menu \n 1. Convert hari \n 2. Convert Detik \n 3. Luas Segitiga \n 4. Luas Trapesium \n 5. Exit')
+        // menu > 0 && menu <6 ? proteksi = false : alert('Input 1 - 5 Saja') 
+        if(menu > 0 && menu <6){  // 4
+            proteksi = 2
+        }else if(menu == null){
+            break; 
+        }else{
+            alert('Input 1 - 5 Saja')
+        }
+    }
+    while(proteksi == 1)
+    // ======================== END PROTEKSI MAIN MENU ===================================
+    if(menu == 1)
+    {
+        // ======================== MENU 1 ======================================
+
+        // PROTEKSI
+        do
+        {
+            var proteksi = true
+            var input = parseInt(prompt('Masukan Berapa Hari')) // 390
+            // input > 0 ? proteksi =false : alert('Hanya Boleh menginput angka')
+            if(input > 0){
+                proteksi = false
+            }else{
+                alert('Hanya Boleh Menginput Angka')
+            }
+        }while(proteksi)
+        alert(convertHari(input))
+        lagi = confirm('Mau Lagi?')
+        // ========================= END MENU 1 ====================================
+    }else if(menu == 2)
+    {
+        //=========================== MENU 2 ======================================
+        do
+        {
+            var proteksi = true
+            var input = parseInt(prompt('Masukan Berapa Detik?'))
+            input > 0 ? proteksi = false : alert('Anda Salah Input')
+        }while(proteksi)
+        alert(convertDetik(input))
+        lagi = confirm('Mau Lagi?')
+        //========================== END MENU 2 ===================================
+    }else if(menu == 3)
+    {
+        //========================== MENU 3 =======================================
+        do
+        {
+            var proteksi = true
+            var alas = parseInt(prompt('Masukan Alas Segitiga'))
+            alas > 0 ? proteksi = false : alert('Anda Salah Input')
+        }while(proteksi)
+        do
+        {
+            var proteksi = true
+            var tinggi = parseInt(prompt('Masukan Tinggi Segitiga'))
+            tinggi > 0 ? proteksi = false : alert('Anda Salah Input')
+        }while(proteksi)
+        alert(segitiga(alas,tinggi))
+        lagi = confirm('Mau Lagi?')
+        //==============================END OF MENU 3 ===================================
+    }else if(menu == 4)
+    {
+        do
+        {
+            var proteksi = true
+            var sisi1 = parseInt(prompt('Masukan Sisi Satu'))
+            sisi1 > 0 ? proteksi = false : alert('Anda Salah Input')
+        }while(proteksi)
+        do
+        {
+            var proteksi = true
+            var sisi2 = parseInt(prompt('Masukan Sisi Dua'))
+            sisi2 > 0 ? proteksi = false : alert('Anda Salah Input')
+        }while(proteksi)
+        do
+        {
+            var proteksi = true
+            var tinggitrap = parseInt(prompt('Masukan Tinggi'))
+            tinggitrap > 0 ? proteksi = false : alert('Anda Salah Input')
+        }while(proteksi)
+        alert(trapesium(sisi1,sisi2,tinggitrap))
+        lagi = confirm('Mau lagi?')
+    }else{lagi = false}
+   
+  }
+  
+</script>
