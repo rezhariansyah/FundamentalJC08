@@ -37,7 +37,6 @@ function removeChar(str){
     return str.slice(1,-1)
 }
 
-console.log(removeChar('Purwadhika Startup')) // purwadhika
-
-
+var kumpulanFn = [removeChar,ganjilGenap,angkaTerbesar]
+console.log(kumpulanFn[1](61)) 
 
