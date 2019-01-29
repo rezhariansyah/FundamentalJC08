@@ -1,7 +1,9 @@
 <script>
     var buah = ['jeruk' , 'lemon' , 'kiwi']
     var harga = [20000,25000,30000]
-
+    var cart = ['Jeruk', 'lemon']
+    var qty = [2 , 2]
+    var hargaCart = [20000 , 25000]
 function showProduct(){
     var menu = ''
     for(var i = 0 ; i < buah.length ; i++){
@@ -13,15 +15,15 @@ function addProduct(){
     
     do{
         var belumada = true
-        var newProduk = prompt('Masukan Produk') // Anggur
-        for(var i = 0 ; i < buah.length ; i++){ // kiwi
+        do{
+            var newProduk = prompt('Masukan Produk')
+        }while(newProduk == '')
+      
+        for(var i = 0 ; i < buah.length ; i++){ 
         if(newProduk == buah[i]){
             belumada = false
+            alert('produk Sudah Ada')
         }
-    }
-
-    if(belumada == false){
-        alert('produk Sudah Ada')
     }
     }while(belumada == false)
     var newHarga = prompt('Masukan Harga Untuk ' + newProduk)
@@ -29,7 +31,29 @@ function addProduct(){
     buah.push(newProduk)
     harga.push(newHarga)
     alert('Input Product Success')
-    
+}
+
+function deleteProduct(){
+    var menu = ''
+    for(var i = 0 ; i < buah.length ; i++){
+        menu += (i+1) + '. ' + buah[i] + ' Rp. ' + harga[i] + '\n'
+    }  
+    var inputDelete = parseInt(prompt(menu += '\n Produk Mana Yang ingin dihapus'))
+    var index = inputDelete-1
+    buah.splice(index , 1)
+    harga.splice(index , 1)
+    alert('Delete Product Suksess')
+}
+
+function fnCekKeranjang(){
+    var total = 0
+    var keranjang = ''
+    for(var i = 0 ; i < cart.length ; i++){ // i =1
+        keranjang += (i+1) + '. ' + cart[i] + ' Rp. ' + hargaCart[i] + ' X ' + qty[i] + ' = Rp. ' + (qty[i] * hargaCart[i])  + '\n'
+        total += qty[i] * hargaCart[i]
+    }
+    keranjang += '\n Total Belanja Adalah Rp. ' + total 
+    alert(keranjang)
 }
 
 function fnAdmin(){
@@ -49,8 +73,10 @@ function fnAdmin(){
         }else if(pilih == 2){
             showProduct()
             addProduct()
+            showProduct()
         }else if(pilih == 3){
             deleteProduct()
+            showProduct()
         }else if(pilih == 4){
             protMain = true
             proteksiMenuAdmin = false
