@@ -1,15 +1,15 @@
 <script>
     var buah = ['jeruk' , 'lemon' , 'kiwi']
     var harga = [20000,25000,30000]
-    var cart = ['Jeruk', 'lemon']
-    var qty = [2 , 2]
-    var hargaCart = [20000 , 25000]
+    var cart = []
+    var qtyArr = []
+    var hargaCart = []
 function showProduct(){
     var menu = ''
     for(var i = 0 ; i < buah.length ; i++){
         menu += (i+1) + '. ' + buah[i] + ' Rp. ' + harga[i] + '\n'
     }  
-    alert(menu)
+    return menu
 }
 function addProduct(){
     
@@ -46,16 +46,70 @@ function deleteProduct(){
 }
 
 function fnCekKeranjang(){
-    var total = 0
-    var keranjang = ''
-    for(var i = 0 ; i < cart.length ; i++){ // i =1
-        keranjang += (i+1) + '. ' + cart[i] + ' Rp. ' + hargaCart[i] + ' X ' + qty[i] + ' = Rp. ' + (qty[i] * hargaCart[i])  + '\n'
-        total += qty[i] * hargaCart[i]
+    if(cart.length > 0){
+        var total = 0
+        var keranjang = ''
+        for(var i = 0 ; i < cart.length ; i++){ // i =1
+            keranjang += (i+1) + '. ' + cart[i] + ' Rp. ' + hargaCart[i] + ' X ' + qtyArr[i] + ' = Rp. ' + (qtyArr[i] * hargaCart[i])  + '\n'
+            total += qtyArr[i] * hargaCart[i]
+        }
+        keranjang += '\n Total Belanja Adalah Rp. ' + total 
+        return keranjang
+    }else{
+        return 'Keranjang Anda Kosong, Silahkan Berbelanja'
     }
-    keranjang += '\n Total Belanja Adalah Rp. ' + total 
-    alert(keranjang)
+    
+}
+function fnBelanja(){
+    var menu = showProduct()
+    menu += '\n Mau Belanja Apa?'
+    var pilihanBelanja = parseInt(prompt(menu))
+    var sudahAda = false
+    for(var i = 0; i < cart.length ; i ++){
+        if(buah[pilihanBelanja-1] == cart[i]){
+            sudahAda = true
+            var pilihanSudahAda = i
+        }
+    }
+    var qty = parseInt(prompt('Masukan qty'))
+    if(sudahAda == false){
+        cart.push(buah[pilihanBelanja-1])
+        hargaCart.push(harga[pilihanBelanja-1])
+        qtyArr.push(qty)
+    }else{
+        qtyArr[pilihanSudahAda] += qty
+    }
+    
+    alert(buah[pilihanBelanja-1] + ' Rp. ' + harga[pilihanBelanja-1] + ' x ' + qty + ' = Rp.' + (harga[pilihanBelanja-1]*qty) + ' Berhasil dimasukan Keranjang')
 }
 
+function fnCheckOut(){
+    if(cart.length == 0){
+        alert('Anda Belum Belanja Apapun')
+    }else{
+        var total = 0
+        var keranjang = ''
+        for(var i = 0 ; i < cart.length ; i++){ // i =1
+            keranjang += (i+1) + '. ' + cart[i] + ' Rp. ' + hargaCart[i] + ' X ' + qtyArr[i] + ' = Rp. ' + (qtyArr[i] * hargaCart[i])  + '\n'
+            total += qtyArr[i] * hargaCart[i]
+        }
+        keranjang += '\n Total Belanja Adalah Rp. ' + total
+        keranjang += '\n Silahkan Bayar '
+        do{
+            var uangKurang = true
+            var bayar = parseInt(prompt(keranjang))
+            if(bayar < total){
+                alert('Uang Anda Kurang')
+            }else{
+                uangKurang = false
+            }
+        }while(uangKurang == true)
+        cart.splice(0,cart.length)
+        qtyArr.splice(0,cart.length)
+        hargaCart.splice(0,cart.length)
+        alert('Pembayaran Sukses')
+    }
+}
 function fnAdmin(){
     do{
         var proteksiMenuAdmin = true
@@ -69,14 +123,14 @@ function fnAdmin(){
         }
         }while(protAdmin == true)
         if(pilih == 1){
-            showProduct()
+            alert(showProduct())
         }else if(pilih == 2){
-            showProduct()
+            alert(showProduct())
             addProduct()
-            showProduct()
+            alert(showProduct())
         }else if(pilih == 3){
             deleteProduct()
-            showProduct()
+            alert(showProduct())
         }else if(pilih == 4){
             protMain = true
             proteksiMenuAdmin = false
@@ -86,23 +140,30 @@ function fnAdmin(){
 }
 
 function fnUser(){
-    do
-    {
-        var proteksiMenuUser = true
-        var pilihan = prompt('1. Belanja \n 2. Cek Keranjang \n 3. Logout')
-        if(pilihan > 0 && pilihan < 4){
-            proteksiMenuUser = false
-        }else{
-            alert('Anda Salah Input')
+    do{
+        var loopingMenu = true
+        do
+        {
+            var proteksiMenuUser = true
+            var pilihan = prompt('1. Belanja \n 2. Cek Keranjang \n 3. CheckOut \n 4. Logout')
+            if(pilihan > 0 && pilihan < 5){
+                proteksiMenuUser = false
+            }else{
+                alert('Anda Salah Input')
+            }
+        }while(proteksiMenuUser == true)
+        if(pilihan == 1){
+            fnBelanja()
+        }else if(pilihan == 2){
+            alert(fnCekKeranjang())
+        }else if(pilihan == 3){
+            fnCheckOut()
+        }else if(pilihan == 4){
+            protMain = true
+            loopingMenu = false
         }
-    }while(proteksiMenuUser == true)
-    if(pilihan == 1){
-        fnBelanja()
-    }else if(pilihan == 2){
-        fnCekKeranjang()
-    }else if(pilihan == 3){
-        protMain = true
-    }
+    }while(loopingMenu)
+    
 }
 // Main Menu
 do{
