@@ -16,7 +16,7 @@ var arrManusia = [
 
 
 function SortNama(){
-    
+
     var akanDiSort = ['seto','bagus','andi']
     for(var i =0 ; i < arrManusia.length ; i++){
         akanDiSort.push(arrManusia[i].nama)
@@ -44,5 +44,48 @@ function SortNama(){
 
 
 
+// const fibo = (urut) => {  // urut = 6
+//     if (urut < 3) {
+//         return 1;
+//     }
+//     else {
+//         return fibo(urut-1) + fibo(urut-2);  // 
+//     }
+// }
 
 
+
+//                                     fibo(6)
+//                                 (fibo(5) + fibo(4))
+//                         (fibo(4)+fibo(3)) + (fibo(3) + 1) 
+// ((fibo(3) + 1) + (1+ 1)) + (1 + 1) + 1
+
+// fibo(2) + fibo(1)
+
+// 1 + 1 +1 + 2 + 3
+
+
+
+
+
+
+
+
+
+const Palindrome = (kata) => {  // MALAM
+    const karakter = kata.toLowerCase().replace(/[^a-z]/g, '')
+    .split('');
+    if ('malam' ===
+    'malam') {
+    return true;
+    } else {
+    return false;
+    }
+    }
+    const hasil = Palindrome("");
+    
+var kata = 'Mala:?m'
+const karakter = kata.toLowerCase().replace(/[^a-z]/g, '')
+
+
+console.log(karakter)

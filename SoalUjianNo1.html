@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TutupLapak.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <script src="main.js"></script>
+</head>
+<style>
+    table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 20px;
+
+        }
+</style>
+<body>
+    <center>
+        <h1>Daftar Produk</h1>
+    <table>
+        <thead id="isiTable">
+
+        </thead>
+    </table>
+    <h1>Keranjang Anda Masih Kosong</h1>
+    <h4></h4>
+    <table>
+        <tbody id='isiCart'> 
+
+        </tbody>
+    </table>
+    <br>
+    <h3 id="demo" style="color:red"></h3>
+    <table id="checkout">
+        <tr>
+            <td>
+                <input type="button" value="CheckOut" onclick="checkout()">
+            </td>
+        </tr>
+    </table>
+</center>
+<script>
+    // var x;
+    // var total;
+
+    // Class Data Menu
+    class DataMenu{
+        constructor(nama,harga,link){
+            this.nama = nama;
+            this.harga = harga;
+            this.img = link;
+        }
+    }
+
+    // Inisialisasi Array Data
+    var data = [
+        new DataMenu('Kacang Garuda',20000,'https://ecs7.tokopedia.net/img/cache/700/product-1/2015/8/19/554158/554158_ae377409-c72a-4d21-b388-13dc1c57d1e4.jpg'),
+        new DataMenu('Roti Sari',15000,'https://suzuya.id/13554/sari-roti-sandwich-cklt-ns-pcs.jpg'),
+        new DataMenu('Bear Brand',9000,'https://i1.wp.com/www.arrowasiaindonesia.com/wp-content/uploads/2017/10/BEAR-BRAND-SUSU-BERUANG-195-GRAM.jpg?fit=1250%2C1664&ssl=1'),
+        new DataMenu('Nescafe',19000,'data:image/jpeg;base64,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'),
+        new DataMenu('Kapal Api',12000,'http://cdn.elevenia.co.id/ex_t/R/348x348/1/85/1/src/g/9/9/3/9/3/9/16993939_B.jpg'),
+    ]   
+
+    // Cart = Arr Kosong, buat menampung isi Cart
+    var cart = [
+      
+    ]
+
+
+
+
+
+    // ============= FUNCTION KURANG FLEKSIBEL ===========================
+    // function tampilkan (){
+    //     // var output = ''
+    //     for(var i = 0 ; i< data.length ; i++){
+    //         output += `<tr>
+    //                     <td>${data[i].nama}</td>
+    //                     <td>${data[i].harga}</td>
+    //                     <td><img src='${data[i].img}' width = '50px'></td>
+    //                     <td><input type='button' onclick="onBtnAdd(${i})" value='Add To Cart For'></td>
+    //                 </tr>`
+    //     }
+    //     document.getElementById('isiTable').innerHTML = output        
+    // }
+
+    // function tampilkanCart(){
+    //     var output = ''
+    //     for(var i = 0 ; i< cart.length ; i++){
+    //         output += `<tr>
+    //                     <td>${cart[i].nama}</td>
+    //                     <td>${cart[i].harga}</td>
+    //                     <td><img src='${cart[i].img}' width = '50px'></td>
+    //                     <td><input type='button' onclick="onBtnDeleteCart(${i})" value='Delete'></td>
+    //                 </tr>`
+    //     }
+    //     document.getElementById('isiCart').innerHTML = output
+    // }
+    // ======================== END OF FUNCTION KURANG FLEKSIBEL ===============
+
+
+    // ======================== FUNCTION FLEKSIBEL ==============================
+
+    function Show(arr,innerHtmlId,valButton,func){
+        var output = ''
+        for(var i = 0 ; i< arr.length ; i++){
+            output += `<tr>
+                        <td>${arr[i].nama}</td>
+                        <td>${arr[i].harga}</td>
+                        <td><img src='${arr[i].img}' width = '50px'></td>
+                        <td><input type='button' onclick="onBtn${func}(${i})" value='${valButton}'></td>
+                    </tr>`
+        }
+        document.getElementById(innerHtmlId).innerHTML = output
+    }
+
+    // ======================== END OF FUNCTION FLEKSIBEL ==============================
+
+
+    function onBtnAdd(id){
+        var konfirmasi = confirm('Anda ingin memasukan Produk ini?')
+        if(konfirmasi == true){
+            cart.push(data[id])
+            Show(cart,'isiCart','DeleteCart','Delete')
+            UpdateH1Keranjang()
+            updateH4Total()
+        }
+       
+    }
+
+    function onBtnDelete(id){
+        if(window.confirm('Are You SUre?')){
+            cart.splice(id,1)
+            Show(cart,'isiCart','DeleteCart','Delete')
+            UpdateH1Keranjang()     
+            updateH4Total()
+        }
+    }
+    // Memmanggil Function
+    // tampilkan()
+    Show(data,'isiTable','Tambah','Add')
+
+    function UpdateH1Keranjang (){
+        if(cart.length == 0){
+            document.getElementsByTagName('h1')[1].innerHTML = 'Keranjang Anda Kosong'
+        }else{
+            document.getElementsByTagName('h1')[1].innerHTML = 'Isi Keranjang Anda = ' + cart.length
+        }
+    }
+
+    function updateH4Total(){
+        var total = 0
+        for(var i = 0; i< cart.length ; i++){
+            total += cart[i].harga
+        }
+        if(cart.length ==0){
+            document.getElementsByTagName('h4')[0].innerHTML = ''
+        }else{
+            document.getElementsByTagName('h4')[0].innerHTML = 'Total Belanja = '+total
+        }
+    }
+
+    function fnPay(){
+        var bayar = document.getElementById('inputBayar').value
+        var total = 0
+        for(var i = 0; i<cart.length ; i++){
+            total+= cart[i].harga
+        }
+        if(total > bayar){
+            alert('Uang Anda Kurang = ' + 'Rp. ' + (total-bayar))
+        }else{
+            alert('Pembayaran Berhasil \n Sisa Bayar = ' + (bayar-total))
+            clearInterval(x)
+            resetKeranjang()
+        }
+        
+    }
+
+
+    function checkout(){
+        if(cart.length >0){
+        countDown()
+        document.getElementById('checkout').innerHTML = `<tr>
+                                                            <td><input type='number' placeholder = 'masukan uang' id='inputBayar'></td>
+                                                            <td><input type = 'button' value = 'pay' onclick = fnPay()></td>
+                                                         </tr>`
+        }else{
+            alert('Anda Belum Belanja')
+        }
+        
+    }
+
+    var x;
+    function countDown(){
+        var seconds = 30
+        function fn(){
+            var cap = 'Waktu Pembayaran tinggal = '
+            document.getElementById('demo').innerHTML =  cap + (seconds-=1) 
+            if(seconds == 0){
+                clearInterval(x)
+                alert('Waktu Pembayaran Habis')
+                resetKeranjang()
+            }
+        }
+        x =  setInterval(fn,1000)
+    }
+
+    function resetKeranjang (){
+        cart.splice(0,cart.length)
+        updateH4Total()
+        UpdateH1Keranjang()
+        Show(cart,'isiCart','DeleteCart','Delete')
+        document.getElementById('demo').innerHTML = ''
+        document.getElementById('checkout').innerHTML = `<tr>
+                                                            <td><input type='button' value = 'Checkout' onclick='checkout()'></td>
+                                                         </tr>`
+
+    }
+    
+
+
+
+
+
+
+
+
+    // ========================= VERSI LAMA ========================
+
+ // function tampil(arr,b,c,fn){
+    //     var output = ''
+    //     var a = arr.map((val,index) => {
+    //         return `<tr>
+    //                     <td>${val.nama}</td>
+    //                     <td>${val.harga}</td>
+    //                     <td><img src='${val.img}' width = '50px'></td>
+    //                     <td><input type='button' onclick="${fn}('${index}')" value='${c}'></td>
+    //                 </tr>`
+    //     })
+    //     document.getElementById(b).innerHTML = a.join('')
+    // }
+    // tampil(data,'isiTable','Add To Cart','onBtnAddToCart')
+    
+    // var onBtnAddToCart = (id) => {
+        
+    //     if(window.confirm('Are You Sure To add ' + data[id].nama + ' to Cart?')){
+    //         cart.push(data[id])
+    //         alert('Data Berhasil ditambah')
+    //         // tampil(cart,'isiCart','Delete','onBtnDeleteCart')
+    //         if(cart.length == 0){
+    //             document.getElementsByTagName('h1')[1].innerHTML = 'Isi Keranjang Anda Kosong'
+    //         }else{
+    //             var total = 0
+    //             for(var i = 0; i < cart.length ; i++){
+    //                 total += cart[i].harga
+    //             }
+    //             document.getElementsByTagName('h1')[1].innerHTML = 'Isi Keranjang Anda adalah ' + cart.length
+    //             document.getElementsByTagName('h4')[0].innerHTML = 'Total Belanjaan adalah Rp. ' + total
+    //             printFilterCart()  
+    //         }
+    //     }
+    // }
+
+    // var onBtnDeleteCart = (id) => {
+    //     if(window.confirm('Are You Sure Want to delete ' + cart[id].nama + ' from the cart?')){
+    //         cart.splice(id,1)
+    //         alert('Produk Has Been Deleted')
+    //         tampil(cart,'isiCart','Delete','onBtnDeleteCart')
+    //         if(cart.length == 0){
+    //             document.getElementsByTagName('h1')[1].innerHTML = 'Isi Keranjang Anda Kosong'
+    //             document.getElementsByTagName('h4')[0].innerHTML = ''    
+    //         }else{
+    //             total = 0
+    //             for(var i = 0; i < cart.length ; i++){
+    //                 total += cart[i].harga
+    //             }
+    //             document.getElementsByTagName('h1')[1].innerHTML = 'Isi Keranjang Anda adalah ' + cart.length
+    //             document.getElementsByTagName('h4')[0].innerHTML = 'Total Belanjaan adalah Rp. ' + '<span>' +total +'</span>' 
+    //         }
+    //     }
+    // }
+
+    // var checkout = () => {
+    //     if(cart.length == 0){
+    //         alert('Anda Tidak Bisa Checkout, Keranjang Anda Masih Kosong')
+    //     }else{
+    //         document.getElementById('checkout').innerHTML = `<tr>
+    //                                                             <td><input type='number' id='inputPayment' placeholder='Masukan Uang Anda'></td>
+    //                                                             <td><input type='button' value='Pay' onclick='onBtnPay()'></td>
+    //                                                          </tr>`
+    //         countDown()                                                 
+    //     }
+    // }
+
+    
+
+    // var resetBoskue =() => {
+    //     document.getElementsByTagName('h1')[1].innerHTML = 'Isi Keranjang Anda Kosong'
+    //     cart.splice(0,cart.length)
+    //     document.getElementById('isiCart').innerHTML = ''
+    //     document.getElementById('checkout').innerHTML = `<tr>
+    //                                                         <td>
+    //                                                             <input type="button" value="CheckOut" onclick="checkout()">
+    //                                                         </td>
+    //                                                     </tr>`
+    //     document.getElementById('demo').innerHTML = ''
+    //     document.getElementsByTagName('h4')[0].innerHTML = ''  
+
+    // }
+
+
+
+    
+    // var countDown = () => {
+    //     var countDownDate = new Date().getTime()+10000;
+    //     x = setInterval(function() {
+    //     var now = new Date().getTime();
+    //     var distance = countDownDate - now; // 
+            
+    //     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    //     var hours = hours.toLocaleString()
+    //     if(hours.length == 1){
+    //         var hours = '0' + hours
+    //     }
+    //     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    //     var minutes = minutes.toLocaleString()
+    //     if(minutes.length == 1){
+    //         var minutes = '0' +minutes
+    //     }
+    //     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    //     var seconds = seconds.toLocaleString()
+    //     if(seconds.length == 1){
+    //         var seconds = '0' +seconds
+    //     }
+            
+    //     document.getElementById("demo").innerHTML = 'Waktu Membayar Tinggal = ' + hours + ":"
+    //     + minutes + ":" + seconds ;
+            
+    //     if (distance < 0) {
+    //         alert('Waktu Pembayaran Habis')
+    //         clearInterval(x);
+    //         resetBoskue()
+    //     }
+    //     }, 1000);
+    // }
+
+    // var onBtnPay = () => {
+    //     var bayar = document.getElementById('inputPayment').value
+    //     var totalBayar = 0
+    //     for(var i =0 ; i< cart.length ; i ++){
+    //         totalBayar += cart[i].harga
+    //     }
+    //     if(bayar >= totalBayar){
+    //         alert('Sisa Belanja adalah = ' +  (bayar - totalBayar))
+    //         clearInterval(x)
+    //         resetBoskue()
+    //     }else{
+    //         alert('Uang Anda Kurang = ' + (totalBayar - bayar))
+    //     }
+    // }
+
+
+
+
+    
+    
+</script>
+</body>
+</html>
