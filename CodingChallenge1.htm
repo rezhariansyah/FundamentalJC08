@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Print Huruf</title>
+    <style>
+        table,
+        th,
+        td {
+            padding: 5px;
+            width: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+     <center>
+     <table>
+       
+        <tr>
+            <td>
+                <h1>
+
+                </h1>
+
+            </td>
+            <td>
+                <h1>
+
+                </h1>
+
+            </td>
+            <td>
+                <h1>
+
+                </h1>
+
+            </td>
+            <td>
+                <h1>
+
+                </h1>
+            </td>
+        </tr>
+    
+     </table>
+     <input type="number">
+     <input type="button" value="tampilkan" onclick="onClickTampil()">
+    </center>
+<script>
+
+    // TEMPLATE
+    var satu = `<br>
+                |<br>
+                |`
+    var dua = 
+    `_<br>
+     _|<br>
+    |_ `
+    var tiga = `_<br>
+                _|<br>
+                _|` 
+
+    var empat = `<br>|_|
+    &nbsp&nbsp&nbsp|`
+
+    var lima = `_<br>
+               |_ <br>
+                _|`
+
+    var enam = `_<br>
+               |_<br>
+               |_|`
+    
+    var tujuh = `_<br>
+    &nbsp&nbsp&nbsp|
+    &nbsp&nbsp&nbsp|`
+
+    var lapan = `_<br>
+                |_|<br>
+                |_|`
+    
+    var mbilan = `_<br>
+                 |_|<br>
+              &nbsp_|  `
+    var kosong = `_<br>
+                 |&nbsp&nbsp&nbsp|
+                 |_|`
+                 
+    var angka = [kosong,satu,dua,tiga,empat,lima,enam,tujuh,lapan,mbilan]
+    function onClickTampil (){
+
+        //  ambil Value dari inputan user
+        var input = document.getElementsByTagName('input')[0].value 
+        
+        if(input.length >4){
+            alert('Hanya Boleh 4 angka')
+        }else{
+
+            // value dijadikan array
+            var arrInpu = input.split('') 
+        for(var i = 0 ; i < angka.length; i++){
+            document.getElementsByTagName('h1')[i].innerHTML = angka[arrInpu[i]] 
+        }
+        }
+        
+    }
+ 
+
+
+</script>    
+</body>
+</html>
